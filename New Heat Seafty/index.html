@@ -1,134 +1,274 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>熱中症対策ナビ</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 
-  <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="theme-color" content="#6c63ff" />
-  <link rel="stylesheet" href="style.css" />
+<title>熱中症対策ナビ</title>
+
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#6c63ff">
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-  <div class="app-shell">
 
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-logo">☀️</div>
-        <div>
-          <h1>熱中症対策ナビ</h1>
-          <p>Heat Safety Navi</p>
-        </div>
-      </div>
-    </header>
+<div class="app-shell">
 
-    <main class="main-content">
-      <!-- ホーム -->
-      <section class="screen active" id="screen-home">
-        <div class="hero-card">
-          <div class="hero-badge">本日の確認</div>
-          <h2>今日の熱中症リスクを確認</h2>
-          <p>ここに危険度・お知らせ・おすすめ行動を表示予定</p>
-        </div>
+<!-- ===== ヘッダー ===== -->
 
-        <div class="card-list">
-          <button class="feature-wide-card">
-            <span class="emoji">🚑</span>
-            <span class="label">119通報確認サイト</span>
-          </button>
+<header class="topbar">
 
-          <button class="feature-wide-card">
-            <span class="emoji">🌡️</span>
-            <span class="label">熱リポ</span>
-          </button>
+<div class="brand">
 
-          <button class="feature-wide-card">
-            <span class="emoji">📝</span>
-            <span class="label">熱中症対策ナビ紹介</span>
-          </button>
-        </div>
-      </section>
+<div class="brand-logo">
+☀️
+</div>
 
-      <!-- 機能一覧 -->
-      <section class="screen" id="screen-features">
-        <h2 class="section-title">機能表</h2>
+<div>
+<h1>熱中症対策ナビ</h1>
+<p>Heat Safety Navi</p>
+</div>
 
-        <div class="feature-grid">
-          <button class="feature-card">
-            <div class="icon">🚫</div>
-            <div class="title">やっちゃダメリスト</div>
-          </button>
+</div>
 
-          <button class="feature-card">
-            <div class="icon">🧑‍⚕️</div>
-            <div class="title">熱中症<br>シミュレーション</div>
-          </button>
+</header>
 
-          <button class="feature-card">
-            <div class="icon">❓</div>
-            <div class="title">熱中症クイズ</div>
-          </button>
 
-          <button class="feature-card">
-            <div class="icon">☀️</div>
-            <div class="title">天気予報</div>
-          </button>
+<!-- ===== メイン ===== -->
 
-          <button class="feature-card">
-            <div class="icon">🧊</div>
-            <div class="title">熱中症予防</div>
-          </button>
+<main class="main-content">
 
-          <button class="feature-card">
-            <div class="icon">👥</div>
-            <div class="title">その他機能</div>
-          </button>
-        </div>
-      </section>
 
-      <!-- 設定 -->
-      <section class="screen" id="screen-settings">
-        <h2 class="section-title">設定</h2>
+<!-- ===== ホーム ===== -->
 
-        <div class="settings-card">
-          <div class="setting-row">
-            <span>地域設定</span>
-            <span class="value">未設定</span>
-          </div>
-          <div class="setting-row">
-            <span>表示モード</span>
-            <span class="value">通常</span>
-          </div>
-          <div class="setting-row">
-            <span>通知</span>
-            <span class="value">後日追加</span>
-          </div>
-        </div>
+<section id="screen-home" class="screen active">
 
-        <div class="info-card">
-          <h3>アプリについて</h3>
-          <p>ここに利用案内、バージョン、開発情報などを表示予定</p>
-        </div>
-      </section>
-    </main>
+<div class="hero-card">
 
-    <nav class="bottom-nav">
-      <button class="nav-item active" data-target="screen-home">
-        <span class="nav-icon">🏠</span>
-        <span class="nav-text">ホーム</span>
-      </button>
-      <button class="nav-item" data-target="screen-features">
-        <span class="nav-icon">📋</span>
-        <span class="nav-text">機能表</span>
-      </button>
-      <button class="nav-item" data-target="screen-settings">
-        <span class="nav-icon">⚙️</span>
-        <span class="nav-text">設定</span>
-      </button>
-    </nav>
+<div class="hero-badge">
+本日の確認
+</div>
 
-  </div>
+<h2>
+今日の熱中症リスクを確認
+</h2>
 
-  <script src="app.js"></script>
+<p>
+ここに危険度や行動アドバイスが表示されます
+</p>
+
+</div>
+
+
+<div class="card-list">
+
+<button class="feature-wide-card">
+
+<div class="emoji">🚑</div>
+
+<div class="label">
+119通報確認サイト
+</div>
+
+</button>
+
+
+<button class="feature-wide-card">
+
+<div class="emoji">🌡️</div>
+
+<div class="label">
+熱リポ
+</div>
+
+</button>
+
+
+<button class="feature-wide-card">
+
+<div class="emoji">📝</div>
+
+<div class="label">
+熱中症対策ナビ紹介
+</div>
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ===== 機能一覧 ===== -->
+
+<section id="screen-features" class="screen">
+
+<h2 class="section-title">
+機能表
+</h2>
+
+<div class="feature-grid">
+
+
+<button class="feature-card">
+
+<div class="icon">🚫</div>
+
+<div class="title">
+やっちゃダメリスト
+</div>
+
+</button>
+
+
+<button class="feature-card">
+
+<div class="icon">🧑‍⚕️</div>
+
+<div class="title">
+熱中症シミュレーション
+</div>
+
+</button>
+
+
+<button class="feature-card">
+
+<div class="icon">❓</div>
+
+<div class="title">
+熱中症クイズ
+</div>
+
+</button>
+
+
+<button class="feature-card">
+
+<div class="icon">☀️</div>
+
+<div class="title">
+天気予報
+</div>
+
+</button>
+
+
+<button class="feature-card">
+
+<div class="icon">🧊</div>
+
+<div class="title">
+熱中症予防
+</div>
+
+</button>
+
+
+<button class="feature-card">
+
+<div class="icon">👥</div>
+
+<div class="title">
+その他機能
+</div>
+
+</button>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ===== 設定 ===== -->
+
+<section id="screen-settings" class="screen">
+
+<h2 class="section-title">
+設定
+</h2>
+
+
+<div class="settings-card">
+
+<div class="setting-row">
+<span>地域設定</span>
+<span class="value">未設定</span>
+</div>
+
+<div class="setting-row">
+<span>表示モード</span>
+<span class="value">通常</span>
+</div>
+
+<div class="setting-row">
+<span>通知</span>
+<span class="value">後日追加</span>
+</div>
+
+</div>
+
+
+
+<div class="info-card">
+
+<h3>アプリについて</h3>
+
+<p>
+熱中症対策ナビは、熱中症予防・判断・学習・緊急対応を支援するアプリです。
+</p>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- ===== 下部ナビ ===== -->
+
+<nav class="bottom-nav">
+
+<button class="nav-item active" data-target="screen-home">
+
+<div class="nav-icon">🏠</div>
+<div class="nav-text">ホーム</div>
+
+</button>
+
+
+<button class="nav-item" data-target="screen-features">
+
+<div class="nav-icon">📋</div>
+<div class="nav-text">機能表</div>
+
+</button>
+
+
+<button class="nav-item" data-target="screen-settings">
+
+<div class="nav-icon">⚙️</div>
+<div class="nav-text">設定</div>
+
+</button>
+
+</nav>
+
+
+</div>
+
+
+
+<script src="app.js"></script>
+
 </body>
 </html>
