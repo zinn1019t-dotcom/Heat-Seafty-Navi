@@ -264,8 +264,6 @@ function changePref(pref) {
 
   saveSetting("pref", pref);
 
-  saveSetting("city", "");
-
 }
 
 // 地域変更
