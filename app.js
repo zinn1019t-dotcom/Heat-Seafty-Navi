@@ -136,6 +136,106 @@ function changeCity(city) {
 
 // ==============================
 
+// 現在地から地域を自動取得
+
+// ==============================
+
+async function detectLocationAndSetRegion() {
+
+  const ok = confirm("現在地を取得して、都道府県と地域を自動設定しますか？");
+
+  if (!ok) return;
+
+  if (!navigator.geolocation) {
+
+    alert("このブラウザは位置情報に対応していません。");
+
+    return;
+
+  }
+
+  navigator.geolocation.getCurrentPosition(
+
+    async (position) => {
+
+      const lat = position.coords.latitude;
+
+      const lon = position.coords.longitude;
+
+      try {
+
+        const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}&accept-language=ja`;
+
+        const response = await fetch(url);
+
+        const data = await response.json();
+
+        const address = data.address || {};
+
+        const pref = address.state || "";
+
+        const city =
+
+          address.city ||
+
+          address.town ||
+
+          address.village ||
+
+          address.county ||
+
+          "";
+
+        const prefSelect = document.getElementById("prefSelect");
+
+        const citySelect = document.getElementById("citySelect");
+
+        if (prefSelect && pref) {
+
+          prefSelect.value = pref;
+
+          changePref(pref, city, false);
+
+        }
+
+        if (citySelect && city) {
+
+          citySelect.value = city;
+
+          changeCity(city);
+
+        }
+
+        if (pref) saveSetting("pref", pref);
+
+        if (city) saveSetting("city", city);
+
+        alert(`地域を設定しました：${pref} ${city}`);
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert("地域の自動取得に失敗しました。");
+
+      }
+
+    },
+
+    (error) => {
+
+      console.error(error);
+
+      alert("位置情報の取得が許可されていないか、取得に失敗しました。");
+
+    }
+
+  );
+
+}
+
+// ==============================
+
 // 通知設定
 
 // ==============================
@@ -226,6 +326,168 @@ function testNotification() {
 
 // ==============================
 
+// 地域ごとの自動通知
+
+// ==============================
+
+let autoNotifyTimer = null;
+
+let lastAlertLevel = "";
+
+// 仮の天気データ取得
+
+// 後でGASや天気APIに置き換え
+
+async function getRegionWeather(pref, city) {
+
+  console.log("天気取得対象:", pref, city);
+
+  return {
+
+    temperature: 32,
+
+    humidity: 75
+
+  };
+
+}
+
+// 簡易危険度判定
+
+function getHeatRiskLevel(temp, humidity) {
+
+  if (temp >= 35) return "危険";
+
+  if (temp >= 31) return "警戒";
+
+  if (temp >= 28) return "注意";
+
+  return "安全";
+
+}
+
+// 通知送信
+
+function sendHeatNotification(level, pref, city, temp) {
+
+  if (!("Notification" in window)) return;
+
+  if (Notification.permission !== "granted") return;
+
+  new Notification("熱中症対策ナビ", {
+
+    body: `${pref} ${city} は現在「${level}」です。気温 ${temp}℃`,
+
+    icon: "icon-192.png"
+
+  });
+
+}
+
+// 自動チェック本体
+
+async function checkHeatAlertForSavedRegion() {
+
+  const notifyEnabled = loadSetting("notifyEnabled") === "1";
+
+  const alertEnabled = loadSetting("alertNotify") === "1";
+
+  const pref = loadSetting("pref");
+
+  const city = loadSetting("city");
+
+  if (!notifyEnabled || !alertEnabled || !pref || !city) return;
+
+  try {
+
+    const weather = await getRegionWeather(pref, city);
+
+    const level = getHeatRiskLevel(weather.temperature, weather.humidity);
+
+    if ((level === "警戒" || level === "危険") && level !== lastAlertLevel) {
+
+      sendHeatNotification(level, pref, city, weather.temperature);
+
+      lastAlertLevel = level;
+
+    }
+
+    if (level === "安全" || level === "注意") {
+
+      lastAlertLevel = "";
+
+    }
+
+    console.log("地域通知チェック:", {
+
+      pref,
+
+      city,
+
+      temperature: weather.temperature,
+
+      humidity: weather.humidity,
+
+      level
+
+    });
+
+  } catch (error) {
+
+    console.error("地域通知チェック失敗:", error);
+
+  }
+
+}
+
+function startAutoRegionNotification() {
+
+  if (autoNotifyTimer) {
+
+    clearInterval(autoNotifyTimer);
+
+  }
+
+  checkHeatAlertForSavedRegion();
+
+  autoNotifyTimer = setInterval(() => {
+
+    checkHeatAlertForSavedRegion();
+
+  }, 10 * 60 * 1000);
+
+}
+
+// ==============================
+
+// 初回：位置情報取得確認
+
+// ==============================
+
+function askLocationPermission() {
+
+  const alreadyAsked = loadSetting("locationAsked");
+
+  if (alreadyAsked === "1") return;
+
+  setTimeout(() => {
+
+    const result = confirm("現在地を取得して地域を自動設定しますか？");
+
+    saveSetting("locationAsked", "1");
+
+    if (result) {
+
+      detectLocationAndSetRegion();
+
+    }
+
+  }, 800);
+
+}
+
+// ==============================
+
 // 初期読み込み
 
 // ==============================
@@ -295,6 +557,10 @@ window.addEventListener("DOMContentLoaded", () => {
     newsToggle.checked = savedNews === "1";
 
   }
+
+  askLocationPermission();
+
+  startAutoRegionNotification();
 
 });
 
