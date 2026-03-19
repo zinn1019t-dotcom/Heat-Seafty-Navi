@@ -32,7 +32,6 @@ navItems.forEach((item) => {
 
 });
 
-
 // ==============================
 
 // 設定保存
@@ -50,7 +49,6 @@ function loadSetting(key) {
   return localStorage.getItem(key);
 
 }
-
 
 // ==============================
 
@@ -72,7 +70,6 @@ function toggleMode() {
 
 }
 
-
 // ==============================
 
 // 地域選択
@@ -89,7 +86,7 @@ function changePref(pref, selectedCity = "", resetCity = true) {
 
   if (!pref || typeof AREA_DATA === "undefined" || !AREA_DATA[pref]) {
 
-    citySelect.innerHTML = "<option>先に都道府県を選択</option>";
+    citySelect.innerHTML = "<option value=''>先に都道府県を選択</option>";
 
     return;
 
@@ -137,6 +134,95 @@ function changeCity(city) {
 
 }
 
+// ==============================
+
+// 通知設定
+
+// ==============================
+
+function requestNotificationPermission() {
+
+  if (!("Notification" in window)) {
+
+    alert("このブラウザは通知に対応していません。");
+
+    return;
+
+  }
+
+  Notification.requestPermission().then((permission) => {
+
+    if (permission === "granted") {
+
+      console.log("通知が許可されました");
+
+    } else if (permission === "denied") {
+
+      console.log("通知が拒否されました");
+
+    }
+
+  });
+
+}
+
+function toggleNotify(enabled) {
+
+  saveSetting("notifyEnabled", enabled ? "1" : "0");
+
+  if (enabled) {
+
+    requestNotificationPermission();
+
+  }
+
+}
+
+function toggleAlert(enabled) {
+
+  saveSetting("alertNotify", enabled ? "1" : "0");
+
+}
+
+function toggleWeatherNotify(enabled) {
+
+  saveSetting("weatherNotify", enabled ? "1" : "0");
+
+}
+
+function toggleNewsNotify(enabled) {
+
+  saveSetting("newsNotify", enabled ? "1" : "0");
+
+}
+
+function testNotification() {
+
+  if (!("Notification" in window)) {
+
+    alert("このブラウザは通知に対応していません。");
+
+    return;
+
+  }
+
+  if (Notification.permission === "granted") {
+
+    new Notification("熱中症対策ナビ", {
+
+      body: "通知テストです",
+
+      icon: "icon-192.png"
+
+    });
+
+  } else {
+
+    alert("通知が許可されていません。");
+
+  }
+
+}
 
 // ==============================
 
@@ -150,7 +236,33 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const savedCity = loadSetting("city");
 
+  const savedMode = loadSetting("displayMode");
+
+  const savedNotify = loadSetting("notifyEnabled");
+
+  const savedAlert = loadSetting("alertNotify");
+
+  const savedWeather = loadSetting("weatherNotify");
+
+  const savedNews = loadSetting("newsNotify");
+
   const prefSelect = document.getElementById("prefSelect");
+
+  const modeValue = document.getElementById("modeValue");
+
+  const notifyToggle = document.getElementById("notifyToggle");
+
+  const alertToggle = document.getElementById("alertToggle");
+
+  const weatherToggle = document.getElementById("weatherToggle");
+
+  const newsToggle = document.getElementById("newsToggle");
+
+  if (savedMode && modeValue) {
+
+    modeValue.textContent = savedMode;
+
+  }
 
   if (savedPref && prefSelect) {
 
@@ -160,8 +272,31 @@ window.addEventListener("DOMContentLoaded", () => {
 
   }
 
-});
+  if (notifyToggle) {
 
+    notifyToggle.checked = savedNotify === "1";
+
+  }
+
+  if (alertToggle) {
+
+    alertToggle.checked = savedAlert === "1";
+
+  }
+
+  if (weatherToggle) {
+
+    weatherToggle.checked = savedWeather === "1";
+
+  }
+
+  if (newsToggle) {
+
+    newsToggle.checked = savedNews === "1";
+
+  }
+
+});
 
 // ==============================
 
@@ -184,35 +319,6 @@ if ("serviceWorker" in navigator) {
     }
 
   });
-// ==============================
 
-// 通知設定
-
-// ==============================
-
-function toggleNotify(enabled) {
-
-  saveSetting("notifyEnabled", enabled ? "1" : "0");
-
-}
-
-function toggleAlert(enabled) {
-
-  saveSetting("alertNotify", enabled ? "1" : "0");
-
-}
-
-function toggleWeatherNotify(enabled) {
-
-  saveSetting("weatherNotify", enabled ? "1" : "0");
-
-}
-
-function toggleNewsNotify(enabled) {
-
-  saveSetting("newsNotify", enabled ? "1" : "0");
-
-}
- 
 }
  
