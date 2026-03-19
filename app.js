@@ -184,6 +184,35 @@ if ("serviceWorker" in navigator) {
     }
 
   });
+// ==============================
 
+// 通知設定
+
+// ==============================
+
+function toggleNotify(enabled) {
+
+  saveSetting("notifyEnabled", enabled ? "1" : "0");
+
+}
+
+function toggleAlert(enabled) {
+
+  saveSetting("alertNotify", enabled ? "1" : "0");
+
+}
+
+function toggleWeatherNotify(enabled) {
+
+  saveSetting("weatherNotify", enabled ? "1" : "0");
+
+}
+
+function toggleNewsNotify(enabled) {
+
+  saveSetting("newsNotify", enabled ? "1" : "0");
+
+}
+ 
 }
  
