@@ -21,6 +21,13 @@
 <h2 class="section-title">設定</h2>
 <div class="settings-card">
 <div class="setting-row">
+<span>現在地から設定</span>
+<button type="button" class="setting-action-btn" onclick="detectLocationAndSetRegion()">
+
+            自動取得
+</button>
+</div>
+<div class="setting-row">
 <span>都道府県</span>
 <select id="prefSelect" onchange="changePref(this.value)">
 <option value="">選択してください</option>
@@ -132,8 +139,8 @@
 </a>
 </nav>
 </div>
-<script src="areas.js?v=8"></script>
-<script src="app.js?v=8"></script>
+<script src="areas.js?v=9"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
  
