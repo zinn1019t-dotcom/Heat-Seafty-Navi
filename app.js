@@ -279,7 +279,7 @@ function changeCity(city) {
 
 // ==============================
 
-// 初期反映
+// 初期反映（修正版）
 
 // ==============================
 
@@ -307,19 +307,22 @@ window.addEventListener("DOMContentLoaded", () => {
 
     prefSelect.value = savedPref;
 
+    // ←これ超重要
+
     changePref(savedPref);
 
-  }
+    // ←生成後にセット
 
-  if (savedCity && citySelect) {
+    if (savedCity && citySelect) {
 
-    citySelect.value = savedCity;
+      citySelect.value = savedCity;
+
+    }
 
   }
 
 });
-
-
+ 
 // ==============================
 
 // PWA Service Worker登録
