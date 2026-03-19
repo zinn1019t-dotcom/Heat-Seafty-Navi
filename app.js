@@ -95,6 +95,71 @@ if (region) {
 
 // ==============================
 
+// ★ 追加：設定機能
+
+// ==============================
+
+// 地域設定
+
+function setRegion() {
+
+  const region = prompt("地域を入力してください（例：名護市）");
+
+  if (!region) return;
+
+  saveSetting("region", region);
+
+  const el = document.getElementById("regionValue");
+
+  if (el) el.textContent = region;
+
+}
+
+// 表示モード切替
+
+function toggleMode() {
+
+  let mode = loadSetting("displayMode") || "通常";
+
+  mode = mode === "通常" ? "シンプル" : "通常";
+
+  saveSetting("displayMode", mode);
+
+  const el = document.getElementById("modeValue");
+
+  if (el) el.textContent = mode;
+
+}
+
+// 初期反映
+
+window.addEventListener("DOMContentLoaded", () => {
+
+  const region = loadSetting("region");
+
+  const mode = loadSetting("displayMode");
+
+  const regionEl = document.getElementById("regionValue");
+
+  const modeEl = document.getElementById("modeValue");
+
+  if (region && regionEl) {
+
+    regionEl.textContent = region;
+
+  }
+
+  if (mode && modeEl) {
+
+    modeEl.textContent = mode;
+
+  }
+
+});
+
+
+// ==============================
+
 // PWA Service Worker登録
 
 // ==============================
