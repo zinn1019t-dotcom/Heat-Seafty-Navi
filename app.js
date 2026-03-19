@@ -488,6 +488,36 @@ function askLocationPermission() {
 
 // ==============================
 
+// 現在日時表示
+
+// ==============================
+
+function updateTime() {
+
+  const el = document.getElementById("currentTime");
+
+  if (!el) return;
+
+  const now = new Date();
+
+  const year = now.getFullYear();
+
+  const month = now.getMonth() + 1;
+
+  const date = now.getDate();
+
+  const day = ["日", "月", "火", "水", "木", "金", "土"][now.getDay()];
+
+  const hour = String(now.getHours()).padStart(2, "0");
+
+  const min = String(now.getMinutes()).padStart(2, "0");
+
+  el.textContent = `${year}/${month}/${date}（${day}） ${hour}:${min}`;
+
+}
+
+// ==============================
+
 // 初期読み込み
 
 // ==============================
@@ -558,6 +588,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  updateTime();
+
+  setInterval(updateTime, 60000);
+
   askLocationPermission();
 
   startAutoRegionNotification();
@@ -585,45 +619,6 @@ if ("serviceWorker" in navigator) {
     }
 
   });
-// ==============================
 
-// 現在日時表示
-
-// ==============================
-
-function updateTime() {
-
-  const el = document.getElementById("currentTime");
-
-  if (!el) return;
-
-  const now = new Date();
-
-  const year = now.getFullYear();
-
-  const month = now.getMonth() + 1;
-
-  const date = now.getDate();
-
-  const day = ["日","月","火","水","木","金","土"][now.getDay()];
-
-  const hour = String(now.getHours()).padStart(2, "0");
-
-  const min = String(now.getMinutes()).padStart(2, "0");
-
-  el.textContent = `${year}/${month}/${date}（${day}） ${hour}:${min}`;
-
-}
-
-// 初期 + 1分ごと更新
-
-window.addEventListener("DOMContentLoaded", () => {
-
-  updateTime();
-
-  setInterval(updateTime, 60000);
-
-});
- 
 }
  
