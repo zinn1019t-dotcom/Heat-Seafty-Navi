@@ -523,4 +523,21 @@ a:active {
   text-decoration: none;
 
 }
- 
+.feature-card {
+
+  text-decoration: none !important;
+
+}
+
+.feature-card .title {
+
+  text-decoration: none !important;
+
+}
+
+.feature-card * {
+
+  text-decoration: none !important;
+
+}
+  
