@@ -83,10 +83,35 @@
 <span>表示モード</span>
 <span class="value" id="modeValue">通常</span>
 </button>
-<div class="setting-row disabled-row">
+<div class="setting-row">
 <span>通知</span>
-<span class="value">準備中</span>
+<label class="switch">
+<input type="checkbox" id="notifyToggle" onchange="toggleNotify(this.checked)">
+<span class="slider"></span>
+</label>
 </div>
+<div class="setting-row">
+<span>熱中症警戒通知</span>
+<label class="switch">
+<input type="checkbox" id="alertToggle" onchange="toggleAlert(this.checked)">
+<span class="slider"></span>
+</label>
+</div>
+<div class="setting-row">
+<span>天気更新通知</span>
+<label class="switch">
+<input type="checkbox" id="weatherToggle" onchange="toggleWeatherNotify(this.checked)">
+<span class="slider"></span>
+</label>
+</div>
+<div class="setting-row">
+<span>お知らせ通知</span>
+<label class="switch">
+<input type="checkbox" id="newsToggle" onchange="toggleNewsNotify(this.checked)">
+<span class="slider"></span>
+</label>
+</div>
+ 
 </div>
 <div class="info-card">
 <h3>アプリについて</h3>
