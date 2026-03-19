@@ -540,4 +540,16 @@ a:active {
   text-decoration: none !important;
 
 }
-  
+ .setting-row {
+ display: flex;
+ justify-content: space-between;
+ padding: 14px 10px;
+ border-bottom: 1px solid #eee;
+ cursor: pointer;
+}
+.setting-row:hover {
+ background: #f5f6ff;
+}
+.setting-row:active {
+ transform: scale(0.98);
+} 
