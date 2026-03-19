@@ -222,4 +222,95 @@ function startSimulation() {
   // TODO: ロジック追加
 
 }
+
+
+// ==============================
+
+// ★★★ ここから追加（都道府県→地域） ★★★
+
+// ==============================
+
+// 地域データ
+
+const AREA_DATA = {
+
+  "沖縄県": ["名護市", "那覇市", "沖縄市", "うるま市"],
+
+  "東京都": ["渋谷区", "新宿区", "港区"],
+
+  "大阪府": ["大阪市", "堺市"],
+
+  "愛知県": ["名古屋市", "豊田市"]
+
+};
+
+// 都道府県変更
+
+function changePref(pref) {
+
+  const citySelect = document.getElementById("citySelect");
+
+  if (!citySelect) return;
+
+  citySelect.innerHTML = "";
+
+  if (!pref || !AREA_DATA[pref]) {
+
+    citySelect.innerHTML = "<option>選択できません</option>";
+
+    return;
+
+  }
+
+  AREA_DATA[pref].forEach(city => {
+
+    const option = document.createElement("option");
+
+    option.value = city;
+
+    option.textContent = city;
+
+    citySelect.appendChild(option);
+
+  });
+
+  localStorage.setItem("pref", pref);
+
+}
+
+// 地域変更
+
+function changeCity(city) {
+
+  localStorage.setItem("city", city);
+
+}
+
+// 初期復元（追加）
+
+window.addEventListener("DOMContentLoaded", () => {
+
+  const pref = localStorage.getItem("pref");
+
+  const city = localStorage.getItem("city");
+
+  const prefSelect = document.getElementById("prefSelect");
+
+  const citySelect = document.getElementById("citySelect");
+
+  if (pref && prefSelect) {
+
+    prefSelect.value = pref;
+
+    changePref(pref);
+
+  }
+
+  if (city && citySelect) {
+
+    citySelect.value = city;
+
+  }
+
+});
  
