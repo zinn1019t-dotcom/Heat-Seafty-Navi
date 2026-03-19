@@ -100,7 +100,9 @@ function toggleMode() {
 
 // ==============================
 
-// 都道府県 → 市町村（修正版）
+// 都道府県 → 市町村
+
+// ※ AREA_DATA は areas.js から読み込む
 
 // ==============================
 
@@ -112,7 +114,7 @@ function changePref(pref, selectedCity = "", resetCity = true) {
 
   citySelect.innerHTML = "";
 
-  if (!pref || !AREA_DATA || !AREA_DATA[pref]) {
+  if (!pref || typeof AREA_DATA === "undefined" || !AREA_DATA[pref]) {
 
     citySelect.innerHTML = "<option value=''>先に都道府県を選択</option>";
 
@@ -139,8 +141,6 @@ function changePref(pref, selectedCity = "", resetCity = true) {
     option.value = city;
 
     option.textContent = city;
-
-    // ★ここが重要（復元）
 
     if (selectedCity && city === selectedCity) {
 
@@ -171,7 +171,7 @@ function changeCity(city) {
 
 // ==============================
 
-// 初期反映（修正版）
+// 初期反映
 
 // ==============================
 
@@ -196,8 +196,6 @@ window.addEventListener("DOMContentLoaded", () => {
   if (savedPref && prefSelect) {
 
     prefSelect.value = savedPref;
-
-    // ★地域も一緒に復元
 
     changePref(savedPref, savedCity, false);
 
