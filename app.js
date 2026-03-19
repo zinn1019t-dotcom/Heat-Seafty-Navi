@@ -1,6 +1,6 @@
 // ==============================
 
-// 画面切替（SPA部分）
+// 画面切替
 
 // ==============================
 
@@ -35,32 +35,7 @@ navItems.forEach((item) => {
 
 // ==============================
 
-// カードクリックエフェクト
-
-// ==============================
-
-const cards = document.querySelectorAll(".feature-card, .feature-wide-card");
-
-cards.forEach((card) => {
-
-  card.addEventListener("click", () => {
-
-    card.style.transform = "scale(0.96)";
-
-    setTimeout(() => {
-
-      card.style.transform = "";
-
-    }, 120);
-
-  });
-
-});
-
-
-// ==============================
-
-// ローカル設定
+// 設定保存
 
 // ==============================
 
@@ -100,9 +75,7 @@ function toggleMode() {
 
 // ==============================
 
-// 都道府県 → 市町村
-
-// ※ AREA_DATA は areas.js から読み込む
+// 地域選択
 
 // ==============================
 
@@ -116,23 +89,19 @@ function changePref(pref, selectedCity = "", resetCity = true) {
 
   if (!pref || typeof AREA_DATA === "undefined" || !AREA_DATA[pref]) {
 
-    citySelect.innerHTML = "<option value=''>先に都道府県を選択</option>";
-
-    saveSetting("pref", "");
-
-    saveSetting("city", "");
+    citySelect.innerHTML = "<option>先に都道府県を選択</option>";
 
     return;
 
   }
 
-  const firstOption = document.createElement("option");
+  const first = document.createElement("option");
 
-  firstOption.value = "";
+  first.value = "";
 
-  firstOption.textContent = "選択してください";
+  first.textContent = "選択してください";
 
-  citySelect.appendChild(firstOption);
+  citySelect.appendChild(first);
 
   AREA_DATA[pref].forEach((city) => {
 
@@ -142,7 +111,7 @@ function changePref(pref, selectedCity = "", resetCity = true) {
 
     option.textContent = city;
 
-    if (selectedCity && city === selectedCity) {
+    if (city === selectedCity) {
 
       option.selected = true;
 
@@ -171,27 +140,17 @@ function changeCity(city) {
 
 // ==============================
 
-// 初期反映
+// 初期読み込み
 
 // ==============================
 
 window.addEventListener("DOMContentLoaded", () => {
 
-  const savedMode = loadSetting("displayMode");
-
   const savedPref = loadSetting("pref");
 
   const savedCity = loadSetting("city");
 
-  const modeEl = document.getElementById("modeValue");
-
   const prefSelect = document.getElementById("prefSelect");
-
-  if (savedMode && modeEl) {
-
-    modeEl.textContent = savedMode;
-
-  }
 
   if (savedPref && prefSelect) {
 
@@ -206,7 +165,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 // ==============================
 
-// PWA Service Worker登録
+// Service Worker
 
 // ==============================
 
@@ -218,46 +177,13 @@ if ("serviceWorker" in navigator) {
 
       await navigator.serviceWorker.register("./service-worker.js");
 
-      console.log("Service Worker registered");
+    } catch (e) {
 
-    } catch (error) {
-
-      console.error("Service Worker registration failed:", error);
+      console.error(e);
 
     }
 
   });
-
-}
-
-
-// ==============================
-
-// 将来拡張用
-
-// ==============================
-
-async function fetchWeather() {
-
-  // TODO: GAS API接続
-
-}
-
-async function postReport(data) {
-
-  // TODO: GASにPOST
-
-}
-
-function loadQuiz() {
-
-  // TODO: JSON or Sheets
-
-}
-
-function startSimulation() {
-
-  // TODO: ロジック追加
 
 }
  
