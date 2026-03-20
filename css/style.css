@@ -500,16 +500,13 @@ a:active{
 
 }
 
-.feature-wide-card .label{
+.feature-wide-card .label {
 
-  font-size: 20px;
+  font-size: clamp(16px, 4vw, 22px);
 
-  line-height: 1.35;
-
-  font-weight: 800;
-
+  line-height: 1.4;
+  font-weight: 700;
   color: #2c3140;
-
 }
 
 /* ==============================
