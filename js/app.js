@@ -88,6 +88,8 @@ function changePref(pref, selectedCity = "", resetCity = true) {
 
     citySelect.innerHTML = "<option value=''>先に都道府県を選択</option>";
 
+    if (resetCity) saveSetting("city", "");
+
     return;
 
   }
@@ -108,21 +110,21 @@ function changePref(pref, selectedCity = "", resetCity = true) {
 
     option.textContent = city;
 
-    if (city === selectedCity) {
-
-      option.selected = true;
-
-    }
-
     citySelect.appendChild(option);
 
   });
+
+  citySelect.value = selectedCity || "";
 
   saveSetting("pref", pref);
 
   if (resetCity) {
 
     saveSetting("city", "");
+
+  } else if (selectedCity) {
+
+    saveSetting("city", selectedCity);
 
   }
 
@@ -556,7 +558,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   }
 
-  if (savedPref && prefSelect) {
+  if (prefSelect && savedPref) {
 
     prefSelect.value = savedPref;
 
@@ -621,13 +623,22 @@ if ("serviceWorker" in navigator) {
     }
 
   });
-let refreshing = false;
-if ("serviceWorker" in navigator) {
- navigator.serviceWorker.addEventListener("controllerchange", () => {
-   if (refreshing) return;
-   refreshing = true;
-   window.location.reload();
- });
+
 }
+
+let refreshing = false;
+
+if ("serviceWorker" in navigator) {
+
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+
+    if (refreshing) return;
+
+    refreshing = true;
+
+    window.location.reload();
+
+  });
+
 }
  
