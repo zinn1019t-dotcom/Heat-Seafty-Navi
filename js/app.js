@@ -621,6 +621,13 @@ if ("serviceWorker" in navigator) {
     }
 
   });
-
+let refreshing = false;
+if ("serviceWorker" in navigator) {
+ navigator.serviceWorker.addEventListener("controllerchange", () => {
+   if (refreshing) return;
+   refreshing = true;
+   window.location.reload();
+ });
+}
 }
  
