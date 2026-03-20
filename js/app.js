@@ -312,7 +312,7 @@ function testNotification() {
 
       body: "通知テストです",
 
-      icon: "icon-192.png"
+      icon: "/icons/favicon-192.png"
 
     });
 
@@ -378,7 +378,7 @@ function sendHeatNotification(level, pref, city, temp) {
 
     body: `${pref} ${city} は現在「${level}」です。気温 ${temp}℃`,
 
-    icon: "icon-192.png"
+    icon: "/icons/favicon-192.png"
 
   });
 
@@ -610,11 +610,13 @@ if ("serviceWorker" in navigator) {
 
     try {
 
-      await navigator.serviceWorker.register("./service-worker.js");
+      await navigator.serviceWorker.register("/service-worker.js");
+
+      console.log("SW登録成功");
 
     } catch (e) {
 
-      console.error(e);
+      console.error("SW登録失敗:", e);
 
     }
 
