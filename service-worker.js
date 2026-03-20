@@ -1,9 +1,10 @@
-const CACHE_NAME = "heat-safety-shell-v1";
+const CACHE_NAME = "heat-safety-shell-v2";
 const urlsToCache = [
   "./",
   "./index.html",
-  "./style.css",
-  "./app.js",
+  "css/style.css",
+  "/js/app.js",
+  "/js/areas.js",
   "./manifest.webmanifest"
 ];
 
