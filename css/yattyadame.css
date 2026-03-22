@@ -342,3 +342,34 @@ h1{
   .lead{ font-size:13px; }
   .item summary{ font-size:14.5px; }
 }
+.back-home-wrap{
+  margin: 28px 0 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.back-home-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #6c63ff, #4f8df7);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.28);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.back-home-btn:hover{
+  box-shadow: 0 12px 24px rgba(108, 99, 255, 0.34);
+}
+
+.back-home-btn:active{
+  transform: scale(0.97);
+}
