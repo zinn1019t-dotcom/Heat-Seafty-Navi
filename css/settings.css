@@ -230,7 +230,7 @@ a:active{
 
   height:100%;
 
-  object-fit:contain;
+  object-fit:cover;
 
 }
 
