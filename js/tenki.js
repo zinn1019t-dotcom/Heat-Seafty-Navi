@@ -220,25 +220,33 @@ async function fetchWeather(lat, lon) {
 
 function tenkihai(code) {
 
-  const table = {
+ const table = {
+  0: ["晴天", "hare"],
+  1: ["一部曇り", "itibukumori"],
+  2: ["一部曇り", "itibukumori2"],
+  3: ["曇り", "kumori"],
 
-    0: ["晴天", "hare"],
+  45: ["霧", "kiri"],
+  48: ["霧", "kiri"],
 
-    1: ["一部曇り", "itibukumori"],
+  51: ["小雨", "ame"],
+  53: ["雨", "ame"],
+  55: ["強い雨", "tuyoiame"],
 
-    2: ["一部曇り", "itibukumori2"],
+  61: ["雨", "ame"],
+  63: ["強い雨", "tuyoiame"],
+  65: ["強い雨", "tuyoiame"],
 
-    3: ["曇り", "kumori"],
+  71: ["雪", "yuki"],
+  73: ["雪", "yuki"],
+  75: ["強い雪", "tuyoyuki"],
 
-    61: ["雨", "ame"],
+  80: ["にわか雨", "niwakaame"],
+  81: ["にわか雨", "niwakaame"],
+  82: ["激しい雨", "tuyoiame"],
 
-    63: ["強い雨", "tuyoiame"],
-
-    71: ["雪", "yuki"],
-
-    95: ["雷雨", "raiu"]
-
-  };
+  95: ["雷雨", "raiu"]
+};
 
   const item = table[code] || ["曇り", "kumori"];
 
