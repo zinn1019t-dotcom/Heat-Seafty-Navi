@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>あつさ天気予報｜熱中症対策ナビ</title>
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#6c63ff">
+
+  <link rel="stylesheet" href="css/tenki.css">
+
+  <link rel="icon" type="image/png" href="favicon-16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="apple-touch-icon-180.png" sizes="180x180">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container_header">
+      <p class="badge">あつさ天気予報｜Heat Safety Navi</p>
+      <h1>あつさ天気予報</h1>
+      <p class="lead">
+        現在地付近の天気とWBGT（暑さ指数）を確認できます
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel danger">
+      <div class="container_panel">
+        <h2>現在の天気</h2>
+
+        <div class="Box2">
+          <div class="Box2-1">
+            <div id="tenki">取得中...</div>
+            <div id="emoji" class="emoji-wrap"></div>
+          </div>
+
+          <div class="Box2-2">
+            <div class="Box2-2-1">
+              <div id="ondo">温度：--</div>
+              <div id="shitudo">湿度：--</div>
+              <div id="wbgt">WBGT：--</div>
+            </div>
+            <div class="Box2-2-1">
+              <div id="taikan">体感温度：--</div>
+              <div id="wind">風速：--</div>
+              <div id="lat_text">北緯：--</div>
+              <div id="lon_text">東経：--</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="Box3">
+          （天気情報は Open-Meteo API を使用）
+        </div>
+      </div>
+    </section>
+
+    <section class="panel danger">
+      <div class="container_panel">
+        <h2>暑さ指数の評価</h2>
+
+        <div class="wbgt-panel">
+          <div id="wbgt-sisuu">WBGT：--</div>
+
+          <div class="wbgt-naiyou">
+            <div id="shisuu">判定中</div>
+            <div id="chuui">位置情報の取得後に表示されます</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/tenki.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>
