@@ -12,6 +12,7 @@
   --max: 960px;
 }
 
+/* ===== BASE ===== */
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -26,6 +27,7 @@ body {
   background: linear-gradient(180deg, #e0f2fe 0%, #f2f7ff 100%);
 }
 
+/* ===== LAYOUT ===== */
 .container_header {
   max-width: var(--max);
   padding: 0 16px;
@@ -36,38 +38,53 @@ body {
 .container_panel {
   max-width: var(--max);
   padding: 0;
-  margin: 20px 0;
+  margin: 20px auto;
 }
 
+/* ===== WEATHER LAYOUT ===== */
 .Box2 {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
-  align-items: start;
+  gap: 12px;
   margin-top: 10px;
 }
 
 @media (min-width: 720px) {
   .Box2 {
     grid-template-columns: 240px 1fr;
-    gap: 12px;
   }
 }
 
 .Box2-1 {
   display: grid;
-  gap: 8px;
+  gap: 10px;
   justify-items: center;
   text-align: center;
 }
 
+/* ===== ICON ===== */
+#emoji img {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15));
+}
+
+@media (max-width: 490px) {
+  #emoji img {
+    max-width: 160px;
+  }
+}
+
+/* ===== DATA CARD ===== */
 .Box2-2 {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 6px;
+  gap: 8px;
   border-radius: 14px;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.55);
+  padding: 10px;
+  background: rgba(255,255,255,0.55);
   backdrop-filter: blur(6px);
 }
 
@@ -77,45 +94,31 @@ body {
   }
 }
 
-.wbgt-panel {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  align-items: center;
-  margin-top: 10px;
-}
-
-@media (min-width: 720px) {
-  .wbgt-panel {
-    grid-template-columns: 240px 1fr;
-  }
-}
-
+/* ===== ITEM ===== */
 .Box2-2-1 > div {
   display: flex;
-  justify-content: flex-start;
   align-items: baseline;
   gap: 10px;
-  padding: 8px 10px;
+  padding: 10px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.7);
-  line-height: 1.2;
+  background: rgba(255,255,255,0.8);
 }
 
+/* ===== NUMBER ===== */
 .kyouchou {
   font-size: 2em;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  line-height: 1.1;
-  color: var(--text);
-  white-space: nowrap;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
+/* WBGT強調 */
 #wbgt .kyouchou,
 #wbgt-sisuu .kyouchou {
-  font-size: 2.4em;
+  font-size: 2.6em;
+  color: #dc2626; /* ← 危険感 */
 }
 
+/* ラベル */
 #ondo,
 #shitudo,
 #wbgt,
@@ -127,25 +130,13 @@ body {
   color: var(--muted);
 }
 
-#emoji img {
-  max-width: 240px;
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15));
-}
-
-@media (max-width: 490px) {
-  #emoji img {
-    max-width: 180px;
-  }
-}
-
+/* 天気テキスト */
 #tenki .kyouchou {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
+/* ===== HEADER ===== */
 .site-header {
   padding: 28px 0;
   text-align: center;
@@ -165,60 +156,65 @@ body {
 .site-header h1 {
   margin: 14px 0 10px;
   font-size: clamp(22px, 4.2vw, 30px);
-  line-height: 1.4;
 }
 
 .lead {
   margin: 0;
   font-size: 14px;
-  color: var(--text);
 }
 
+/* ===== PANEL ===== */
 .panel {
   margin-top: 20px;
-  padding: 18px 20px 22px;
+  padding: 20px;
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255,255,255,0.95);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
 }
 
-h2 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .panel.danger {
   border-color: #bfdbfe;
-  box-shadow: 0 12px 28px rgba(191, 219, 254, 0.8);
-  max-width: 900px;
-  margin: 12px auto;
-  padding: 0 16px 18px;
+  box-shadow: 0 12px 28px rgba(191, 219, 254, 0.6);
 }
 
-.Box3 {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 12px;
+/* ===== WBGT ===== */
+.wbgt-panel {
+  display: grid;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+@media (min-width: 720px) {
+  .wbgt-panel {
+    grid-template-columns: 240px 1fr;
+  }
 }
 
 .wbgt-naiyou {
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.85);
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 16px;
 }
 
 #shisuu {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 900;
   margin-bottom: 8px;
 }
 
 #chuui {
   font-size: 1rem;
-  color: var(--text);
 }
 
+/* ===== NOTE ===== */
+.Box3 {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+/* ===== FOOTER ===== */
 .footer {
   margin: 24px 0 16px;
   text-align: center;
@@ -226,9 +222,10 @@ h2 {
   color: var(--muted);
 }
 
+/* ===== MOBILE ===== */
 @media (max-width: 600px) {
   .panel {
-    padding: 16px 14px 18px;
+    padding: 16px;
   }
 
   .site-header h1 {
@@ -237,10 +234,5 @@ h2 {
 
   .lead {
     font-size: 13px;
-  }
-
-  .call119-btn {
-    width: 100%;
-    box-sizing: border-box;
   }
 }
