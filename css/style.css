@@ -1308,4 +1308,55 @@ select{
   }
 
 }
- 
+/* ==============================
+   スプラッシュ（起動画面）
+============================== */
+
+.splash-screen{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:linear-gradient(180deg, #6c63ff 0%, #4f8df7 100%);
+  transition:opacity .45s ease, visibility .45s ease;
+}
+
+.splash-screen.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.splash-inner{
+  text-align:center;
+  color:#fff;
+  padding:24px;
+}
+
+.splash-logo{
+  width:96px;
+  height:96px;
+  margin:0 auto 18px;
+
+  border-radius:24px;
+  background:#fff;
+  padding:10px;
+
+  box-shadow:0 14px 32px rgba(0,0,0,.18);
+}
+
+.splash-title{
+  margin:0;
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+
+.splash-subtitle{
+  margin:8px 0 0;
+  font-size:14px;
+  opacity:.9;
+}
