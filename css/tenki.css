@@ -41,7 +41,7 @@ body {
   margin: 20px auto;
 }
 
-/* ===== WEATHER LAYOUT ===== */
+/* ===== WEATHER ===== */
 .Box2 {
   display: grid;
   grid-template-columns: 1fr;
@@ -67,7 +67,6 @@ body {
   max-width: 220px;
   width: 100%;
   height: auto;
-  display: block;
   filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15));
 }
 
@@ -108,17 +107,15 @@ body {
 .kyouchou {
   font-size: 2em;
   font-weight: 800;
-  letter-spacing: 0.04em;
 }
 
-/* WBGT強調 */
 #wbgt .kyouchou,
 #wbgt-sisuu .kyouchou {
   font-size: 2.6em;
-  color: #dc2626; /* ← 危険感 */
+  color: #dc2626;
 }
 
-/* ラベル */
+/* ===== LABEL ===== */
 #ondo,
 #shitudo,
 #wbgt,
@@ -130,12 +127,6 @@ body {
   color: var(--muted);
 }
 
-/* 天気テキスト */
-#tenki .kyouchou {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
 /* ===== HEADER ===== */
 .site-header {
   padding: 28px 0;
@@ -143,7 +134,6 @@ body {
 }
 
 .badge {
-  display: inline-block;
   font-size: 12px;
   font-weight: 800;
   padding: 6px 12px;
@@ -159,7 +149,6 @@ body {
 }
 
 .lead {
-  margin: 0;
   font-size: 14px;
 }
 
@@ -200,7 +189,6 @@ body {
 #shisuu {
   font-size: 1.6rem;
   font-weight: 900;
-  margin-bottom: 8px;
 }
 
 #chuui {
@@ -214,13 +202,48 @@ body {
   margin-top: 12px;
 }
 
-/* ===== FOOTER ===== */
-.footer {
-  margin: 24px 0 16px;
-  text-align: center;
-  font-size: 12px;
-  color: var(--muted);
+/* ============================= */
+/* 🔥 ホームに戻るボタン（改善版） */
+/* ============================= */
+
+.center{
+  text-align:center;
+  margin:32px auto 16px;
 }
+
+.home-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  width:260px;
+  padding:14px;
+
+  border-radius:14px;
+  text-decoration:none;
+
+  font-size:15px;
+  font-weight:700;
+
+  color:#2563eb;
+  background:#ffffff;
+
+  border:2px solid #2563eb;
+
+  box-shadow:0 8px 18px rgba(37,99,235,0.15);
+
+  transition: all .2s ease;
+}
+
+/* 押したとき（スマホ重要） */
+.home-btn:active{
+  transform:scale(0.97);
+  background:#2563eb;
+  color:#ffffff;
+}
+
+/* ============================= */
 
 /* ===== MOBILE ===== */
 @media (max-width: 600px) {
@@ -234,5 +257,10 @@ body {
 
   .lead {
     font-size: 13px;
+  }
+
+  .home-btn{
+    width:100%;
+    max-width:320px;
   }
 }
