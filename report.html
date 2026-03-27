@@ -34,7 +34,10 @@
         <img src="icons/favicon-192-v2.png">
       </div>
       <div class="msg">
-        <div class="bubble">今の体調を送ってね（例：頭が痛い、めまい）</div>
+        <div class="bubble">
+          今の体調を送ってね<br>
+          例：頭が痛い、少しめまい
+        </div>
         <div class="meta">—</div>
       </div>
     </div>
@@ -42,28 +45,30 @@
 
   <!-- ===== 入力欄 ===== -->
   <div class="composer">
-    <textarea id="text" placeholder="メッセージ"></textarea>
+    <textarea id="text" placeholder="メッセージを入力"></textarea>
     <button id="send">送信</button>
   </div>
 
 </div>
 
-<!-- ===== 下部ナビ ===== -->
+<!-- ===== 下部メニュー ===== -->
 <nav class="bottom-nav">
+
   <a href="index.html" class="nav-item">
     <span class="nav-icon">🏠</span>
     <span class="nav-text">ホーム</span>
   </a>
 
-  <a href="report.html active" class="nav-item">
+  <a href="chat.html" class="nav-item active">
     <span class="nav-icon">💬</span>
     <span class="nav-text">熱リポ</span>
   </a>
 
   <a href="features.html" class="nav-item">
-    <span class="nav-icon">⚙️</span>
+    <span class="nav-icon">📊</span>
     <span class="nav-text">機能表</span>
   </a>
+
 </nav>
 
 <script>
@@ -85,3 +90,63 @@ function addMine(msg){
   const div = document.createElement("div");
   div.className="row mine";
   div.innerHTML=`<div>
+    <div class="bubble">${msg}</div>
+    <div class="meta">${now()}</div>
+  </div>`;
+  chat.appendChild(div);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+function addBot(msg){
+  const div = document.createElement("div");
+  div.className="row theirs";
+  div.innerHTML=`<div class="avatar">
+    <img src="icons/favicon-192-v2.png">
+  </div>
+  <div class="msg">
+    <div class="bubble">${msg}</div>
+    <div class="meta">${now()}</div>
+  </div>`;
+  chat.appendChild(div);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+async function sendMessage(){
+  const msg = text.value.trim();
+  if(!msg) return;
+
+  addMine(msg);
+  text.value="";
+  send.disabled=true;
+
+  try{
+    const res = await fetch(GAS_URL,{
+      method:"POST",
+      body:JSON.stringify({
+        key:API_KEY,
+        text:msg
+      })
+    });
+
+    const data = await res.json();
+    addBot(data.reply || "エラー");
+
+  }catch(e){
+    addBot("通信エラー");
+  }
+
+  send.disabled=false;
+}
+
+send.onclick = sendMessage;
+
+text.addEventListener("keydown",e=>{
+  if(e.key==="Enter" && !e.shiftKey){
+    e.preventDefault();
+    sendMessage();
+  }
+});
+</script>
+
+</body>
+</html>
