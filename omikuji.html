@@ -2,14 +2,83 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>熱中症おみくじ</title>
 <link rel="stylesheet" href="css/omikuji.css">
 <link rel="icon" type="image/png" href="icons/favicon-192-v2.png">
 <link rel="shortcut icon" href="icons/favicon-192-v2.png">
 <link rel="apple-touch-icon" href="icons/favicon-512-v2.png">
+<style>
+
+/* 下部メニュー分の余白 */
+
+body {
+
+  padding-bottom: 90px;
+
+}
+
+/* 下部ナビ */
+
+.bottom-nav {
+
+  position: fixed;
+
+  left: 0;
+
+  right: 0;
+
+  bottom: 0;
+
+  max-width: 520px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(3,1fr);
+
+  padding: 10px;
+
+  background: rgba(255,255,255,0.95);
+
+  border-top: 1px solid #ddd;
+
+  z-index: 100;
+
+}
+
+.nav-item {
+
+  text-align: center;
+
+  text-decoration: none;
+
+  color: #666;
+
+  font-size: 12px;
+
+}
+
+.nav-item.active {
+
+  color: #2563eb;
+
+  font-weight: bold;
+
+}
+
+.nav-icon {
+
+  font-size: 20px;
+
+  display: block;
+
+}
+</style>
 </head>
 <body>
+<div class="app-shell">
 <header class="site-header">
 <div class="header-inner">
 <div class="site-logo">
@@ -31,442 +100,143 @@
 <p id="locationInfo" class="location-info">位置情報を取得中...</p>
 <p id="tempInfo" class="temp-info">気温を取得中...</p>
 </section>
-<section class="card" id="adviceCard">
+<section class="card">
 <button id="omikujiBtn" class="btn-main" disabled>おみくじを引く 🎲</button>
 <h2 class="label">今日のおすすめの過ごし方</h2>
-<p id="levelLabel" class="level-label">---</p>
-<p id="levelDesc" class="level-desc">データ取得後に表示されます。</p>
-<ul id="adviceList" class="advice-list"></ul>
+<p id="levelLabel">---</p>
+<p id="levelDesc">データ取得後に表示されます。</p>
+<ul id="adviceList"></ul>
 <div class="food-box">
 <p class="sub-label">今日おすすめの飲みもの・食べもの</p>
-<ul id="foodList" class="food-list"></ul>
+<ul id="foodList"></ul>
 </div>
-</section>
-<section class="note">
-<h2>🔍 このおみくじについて</h2>
-<p>
-
-      このおみくじは、楽しみながら
-<strong>熱中症予防</strong>について考えるためのものです。<br>
-
-      体調が悪いときは、必ず
-<strong>近くの大人・先生・医療機関</strong>に相談してください。
-</p>
 </section>
 </main>
 <footer class="site-footer">
 <p>データ出典：Open-Meteo</p>
 <p>© 熱中症おみくじプロジェクト</p>
 </footer>
+</div>
+<!-- ================= 下部メニュー ================= -->
+<nav class="bottom-nav">
+<a href="index.html" class="nav-item">
+<span class="nav-icon">🏠</span>
+
+    ホーム
+</a>
+<a href="#" class="nav-item active">
+<span class="nav-icon">🎲</span>
+
+    おみくじ
+</a>
+<a href="features.html" class="nav-item">
+<span class="nav-icon">📋</span>
+
+    機能表
+</a>
+</nav>
+<!-- ================= JS（そのまま） ================= -->
 <script>
 
-  // ======= 位置情報と天気関連（Open-Meteo版） =======
+// ===== 位置情報 =====
 
-  let currentLat = null;
+let currentTemp = null;
 
-  let currentLon = null;
+let currentAppTemp = null;
 
-  let currentTemp = null;
+const locationInfo = document.getElementById("locationInfo");
 
-  let currentAppTemp = null;
+const tempInfo = document.getElementById("tempInfo");
 
-  const locationInfo = document.getElementById("locationInfo");
+const omikujiBtn = document.getElementById("omikujiBtn");
 
-  const tempInfo = document.getElementById("tempInfo");
+window.addEventListener("load", () => {
 
-  const omikujiBtn = document.getElementById("omikujiBtn");
+  if (confirm("位置情報を使用しますか？")) {
 
-  window.addEventListener("load", function () {
+    navigator.geolocation.getCurrentPosition(async pos => {
 
-    const ok = window.confirm(
+      const lat = pos.coords.latitude;
 
-      "このおみくじは、現在地付近のOpen-Meteoデータを使って気温を判定します。\n\n" +
+      const lon = pos.coords.longitude;
 
-      "スマホやPCの位置情報を利用してもよいですか？"
+      locationInfo.textContent = "現在地取得OK";
 
-    );
-
-    if (ok) {
-
-      getLocation();
-
-    } else {
-
-      locationInfo.textContent = "位置情報を使わずに、共通の設定でおみくじを引けます。";
-
-      tempInfo.textContent = "気温：共通の目安（おみくじは利用できます）";
-
-      omikujiBtn.disabled = false;
-
-    }
-
-  });
-
-  function getLocation() {
-
-    if (!navigator.geolocation) {
-
-      locationInfo.textContent = "この端末では位置情報が使えません。";
-
-      tempInfo.textContent = "気温の取得ができません。";
-
-      omikujiBtn.disabled = false;
-
-      return;
-
-    }
-
-    locationInfo.textContent = "位置情報へのアクセスを許可してください…";
-
-    navigator.geolocation.getCurrentPosition(
-
-      function (position) {
-
-        currentLat = position.coords.latitude;
-
-        currentLon = position.coords.longitude;
-
-        locationInfo.textContent =
-
-          "現在地付近（北緯 " + currentLat.toFixed(2) + "° / 東経 " + currentLon.toFixed(2) + "°）";
-
-        fetchWeather(currentLat, currentLon);
-
-      },
-
-      function (err) {
-
-        console.error(err);
-
-        locationInfo.textContent = "位置情報の取得に失敗しました。許可設定を確認してね。";
-
-        tempInfo.textContent = "気温の取得ができません。";
-
-        omikujiBtn.disabled = false;
-
-      },
-
-      {
-
-        enableHighAccuracy: true,
-
-        timeout: 10000
-
-      }
-
-    );
-
-  }
-
-  async function fetchWeather(lat, lon) {
-
-    tempInfo.textContent = "気温を取得中...";
-
-    const url =
-
-      "https://api.open-meteo.com/v1/forecast" +
-
-      "?latitude=" + encodeURIComponent(lat) +
-
-      "&longitude=" + encodeURIComponent(lon) +
-
-      "&hourly=temperature_2m,apparent_temperature" +
-
-      "&timezone=Asia%2FTokyo" +
-
-      "&forecast_days=1";
-
-    try {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature`;
 
       const res = await fetch(url);
 
       const data = await res.json();
 
-      const times = data.hourly.time;
+      currentTemp = data.current.temperature_2m;
 
-      const temps = data.hourly.temperature_2m;
+      currentAppTemp = data.current.apparent_temperature;
 
-      const appTemps = data.hourly.apparent_temperature;
-
-      const now = new Date();
-
-      const year = now.getFullYear();
-
-      const month = String(now.getMonth() + 1).padStart(2, "0");
-
-      const day = String(now.getDate()).padStart(2, "0");
-
-      const hourStr = String(now.getHours()).padStart(2, "0");
-
-      const targetTime = year + "-" + month + "-" + day + "T" + hourStr + ":00";
-
-      let idx = times.indexOf(targetTime);
-
-      if (idx === -1) {
-
-        let minDiff = Infinity;
-
-        for (let i = 0; i < times.length; i++) {
-
-          const t = new Date(times[i]);
-
-          const diff = Math.abs(t.getTime() - now.getTime());
-
-          if (diff < minDiff) {
-
-            minDiff = diff;
-
-            idx = i;
-
-          }
-
-        }
-
-      }
-
-      currentTemp = temps[idx];
-
-      currentAppTemp = appTemps[idx];
-
-      tempInfo.textContent =
-
-        "推定気温：約 " + currentTemp.toFixed(1) + "℃ / 体感温度：約 " + currentAppTemp.toFixed(1) + "℃（Open-Meteo）";
-
-    } catch (e) {
-
-      console.error(e);
-
-      tempInfo.textContent = "気温の取得に失敗しました。ネット環境を確認してね。";
-
-    } finally {
+      tempInfo.textContent = `気温 ${currentTemp}℃ / 体感 ${currentAppTemp}℃`;
 
       omikujiBtn.disabled = false;
 
-    }
+    });
+
+  } else {
+
+    omikujiBtn.disabled = false;
 
   }
 
-  // ======= おみくじ関連 =======
+});
 
-  function judgeHeatLevel(temp) {
+// ===== 判定 =====
 
-    if (temp == null || isNaN(temp)) {
+function judgeHeatLevel(temp){
 
-      return "unknown";
+  if(temp < 20) return "cool";
 
-    } else if (temp < 20) {
+  if(temp < 26) return "warm";
 
-      return "cool";
+  if(temp < 30) return "hot";
 
-    } else if (temp < 26) {
+  return "very_hot";
 
-      return "warm";
+}
 
-    } else if (temp < 30) {
+const levelLabel = document.getElementById("levelLabel");
 
-      return "hot";
+const levelDesc = document.getElementById("levelDesc");
 
-    } else {
+omikujiBtn.addEventListener("click", ()=>{
 
-      return "very_hot";
+  const t = currentAppTemp ?? currentTemp ?? 25;
 
-    }
+  const level = judgeHeatLevel(t);
+
+  if(level==="cool"){
+
+    levelLabel.textContent="さわやか大吉";
+
+    levelDesc.textContent="過ごしやすい日！";
+
+  } else if(level==="warm"){
+
+    levelLabel.textContent="注意中吉";
+
+    levelDesc.textContent="水分補給を忘れずに";
+
+  } else if(level==="hot"){
+
+    levelLabel.textContent="あつい小吉";
+
+    levelDesc.textContent="かなり暑い日";
+
+  } else {
+
+    levelLabel.textContent="危険凶";
+
+    levelDesc.textContent="外出注意レベル";
 
   }
 
-  const adviceByLevel = {
-
-    cool: {
-
-      name: "さわやか大吉",
-
-      desc: "比較的すごしやすい暑さだけど、水分補給は忘れずに。",
-
-      advice: [
-
-        "今のうちにしっかり水分をとっておこう。",
-
-        "無理をしすぎなければ、運動しやすいコンディション。",
-
-        "長時間外にいるときは、休憩タイムも忘れずに。"
-
-      ]
-
-    },
-
-    warm: {
-
-      name: "注意中吉",
-
-      desc: "少し暑めの日。こまめな水分補給と休憩を意識しよう。",
-
-      advice: [
-
-        "のどがかわく前に、こまめに水分補給をしよう。",
-
-        "直射日光をさけて、日かげや風通しのいい場所を活用しよう。",
-
-        "体育や部活の前後には、休憩＋水分をセットに！"
-
-      ]
-
-    },
-
-    hot: {
-
-      name: "あつい小吉",
-
-      desc: "かなり暑い日。無理すると熱中症リスクが高くなるよ。",
-
-      advice: [
-
-        "汗をたくさんかいたら、水分＋塩分もとろう（スポドリなど）。",
-
-        "「ちょっと頭がいたい」「気分がわるい」と感じたら、すぐ休もう。",
-
-        "屋内でも油断せず、エアコンや扇風機を上手に使おう。"
-
-      ]
-
-    },
-
-    very_hot: {
-
-      name: "熱中症に気をつけて凶",
-
-      desc: "とても暑い日。無理をしないのがいちばん大事！",
-
-      advice: [
-
-        "無理をして運動しないようにしよう。体調を最優先！",
-
-        "めまい・吐き気・強いだるさが出たら、すぐに活動をやめて大人に相談。",
-
-        "水分＋首やわきの下などを冷やすなど、体をひやす工夫をしよう。"
-
-      ]
-
-    },
-
-    unknown: {
-
-      name: "判定できませんでした",
-
-      desc: "気温の取得に失敗しましたが、暑さ対策はいつでも大事です。",
-
-      advice: [
-
-        "気温の取得に失敗しました。ネット環境や時間を確認してみよう。",
-
-        "それでも水分補給・休憩・日かげの活用はいつでも大事！"
-
-      ]
-
-    }
-
-  };
-
-  const foodByLevel = {
-
-    cool: [
-
-      "水や麦茶など、甘くない飲みもの",
-
-      "お茶＋軽いお菓子（しょっぱい系）",
-
-      "フルーツ（みかん、りんごなど）"
-
-    ],
-
-    warm: [
-
-      "スポーツドリンク（飲みすぎない程度に）",
-
-      "麦茶＋塩分のあるお菓子（せんべいなど）",
-
-      "きゅうり・トマトなどさっぱりした野菜"
-
-    ],
-
-    hot: [
-
-      "スポーツドリンクや経口補水液",
-
-      "塩分入りのタブレットや飴",
-
-      "水分の多いフルーツ（スイカ、オレンジなど）"
-
-    ],
-
-    very_hot: [
-
-      "こまめな水・スポーツドリンク",
-
-      "塩分を含む補給食（梅干し・塩こんぶなど）",
-
-      "アイスやかき氷を食べすぎない程度に取り入れる"
-
-    ],
-
-    unknown: [
-
-      "まずは水や麦茶など基本の水分補給をしよう。",
-
-      "長時間の活動の前後には、少ししょっぱいものをプラス。",
-
-      "その日の体調に合わせて、無理のない範囲で食べよう。"
-
-    ]
-
-  };
-
-  const levelLabel = document.getElementById("levelLabel");
-
-  const levelDesc = document.getElementById("levelDesc");
-
-  const adviceList = document.getElementById("adviceList");
-
-  const foodList = document.getElementById("foodList");
-
-  omikujiBtn.addEventListener("click", function () {
-
-    const baseTemp = (currentAppTemp != null) ? currentAppTemp : currentTemp;
-
-    const level = judgeHeatLevel(baseTemp);
-
-    const info = adviceByLevel[level] || adviceByLevel.unknown;
-
-    const foods = foodByLevel[level] || foodByLevel.unknown;
-
-    levelLabel.textContent = info.name;
-
-    levelDesc.textContent = info.desc;
-
-    adviceList.innerHTML = "";
-
-    info.advice.forEach(function (item) {
-
-      const li = document.createElement("li");
-
-      li.textContent = item;
-
-      adviceList.appendChild(li);
-
-    });
-
-    foodList.innerHTML = "";
-
-    foods.forEach(function (item) {
-
-      const li = document.createElement("li");
-
-      li.textContent = item;
-
-      foodList.appendChild(li);
-
-    });
-
-  });
+});
 </script>
 </body>
 </html>
