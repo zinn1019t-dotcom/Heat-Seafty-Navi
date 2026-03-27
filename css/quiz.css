@@ -669,3 +669,9 @@ body.quiz-page{
   }
 
 }
+.btn-wrap{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
