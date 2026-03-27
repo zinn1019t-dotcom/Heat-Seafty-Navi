@@ -1,271 +1,87 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>ネツリポ</title>
-<!-- favicon -->
-<link rel="icon" type="image/png" sizes="192x192" href="icons/favicon-192-v2.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icons/favicon-512-v2.png">
-<link rel="shortcut icon" href="icons/favicon-192-v2.png">
-<link rel="apple-touch-icon" href="icons/favicon-192-v2.png">
-<!-- 外部CSS -->
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>ネツリポ</title>
+
+  <!-- favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/favicon-192-v2.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/favicon-512-v2.png">
+  <link rel="apple-touch-icon" href="icons/favicon-192-v2.png">
+
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 <div class="app">
-<!-- ===== 上部バー ===== -->
-<div class="topbar">
-<img class="app-icon" src="icons/favicon-192-v2.png" alt="ネツリポ">
-<div class="topbar-text">
 
+  <!-- ===== 上部バー ===== -->
+  <div class="topbar">
+    <img class="app-icon" src="icons/favicon-192-v2.png">
+    <div class="topbar-text">
       ネツリポ
-<div class="sub">Google Apps Script 接続</div>
-</div>
-</div>
-<!-- ===== チャット領域 ===== -->
-<div id="chat" class="chat" aria-live="polite">
-<div class="day"><span id="today"></span></div>
-<div class="row theirs">
-<div class="avatar">
-<img src="icons/favicon-192-v2.png" alt="ネツリポ">
-</div>
-<div class="msg">
-<div class="bubble">今の体調を文章で送ってね。<br>例：頭が痛い、少し吐き気がある</div>
-<div class="meta">—</div>
-</div>
-</div>
-</div>
-<!-- ===== 入力欄 ===== -->
-<div class="composer">
-<textarea
+      <div class="sub">体調チェックAI</div>
+    </div>
+  </div>
 
-      id="text"
+  <!-- ===== チャット ===== -->
+  <div id="chat" class="chat">
+    <div class="day"><span id="today"></span></div>
 
-      placeholder="メッセージ（例：頭が痛くて少しめまい）"
+    <div class="row theirs">
+      <div class="avatar">
+        <img src="icons/favicon-192-v2.png">
+      </div>
+      <div class="msg">
+        <div class="bubble">今の体調を送ってね（例：頭が痛い、めまい）</div>
+        <div class="meta">—</div>
+      </div>
+    </div>
+  </div>
 
-      rows="1"
-></textarea>
-<button id="send" type="button">送信</button>
+  <!-- ===== 入力欄 ===== -->
+  <div class="composer">
+    <textarea id="text" placeholder="メッセージ"></textarea>
+    <button id="send">送信</button>
+  </div>
+
 </div>
-</div>
+
+<!-- ===== 下部ナビ ===== -->
+<nav class="bottom-nav">
+  <a href="index.html" class="nav-item">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-text">ホーム</span>
+  </a>
+
+  <a href="report.html active" class="nav-item">
+    <span class="nav-icon">💬</span>
+    <span class="nav-text">熱リポ</span>
+  </a>
+
+  <a href="features.html" class="nav-item">
+    <span class="nav-icon">⚙️</span>
+    <span class="nav-text">機能表</span>
+  </a>
+</nav>
+
 <script>
-
-  /* =========================
-
-     設定
-
-  ========================= */
-
-  const GAS_URL = "YOUR_GAS_WEBAPP_URL";
-
-  const API_KEY = "YOUR_API_KEY";
-
-  const chat = document.getElementById("chat");
-
-  const text = document.getElementById("text");
-
-  const send = document.getElementById("send");
-
-  const todayEl = document.getElementById("today");
-
-  todayEl.textContent = todayStr();
-
-  function nowHHMM() {
-
-    const d = new Date();
-
-    return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
-
-  }
-
-  function todayStr() {
-
-    const d = new Date();
-
-    return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}`;
-
-  }
-
-  function scrollBottom() {
-
-    chat.scrollTop = chat.scrollHeight;
-
-  }
-
-  function addMine(message) {
-
-    const wrap = document.createElement("div");
-
-    wrap.className = "row mine";
-
-    wrap.innerHTML = `
-<div>
-<div class="bubble"></div>
-<div class="meta mine-meta">${nowHHMM()}・送信</div>
-</div>
-
-    `;
-
-    wrap.querySelector(".bubble").textContent = message;
-
-    chat.appendChild(wrap);
-
-    scrollBottom();
-
-  }
-
-  function addTheirs(message) {
-
-    const wrap = document.createElement("div");
-
-    wrap.className = "row theirs";
-
-    wrap.innerHTML = `
-<div class="avatar">
-<img src="icons/favicon-192-v2.png" alt="ネツリポ">
-</div>
-<div class="msg">
-<div class="bubble"></div>
-<div class="meta">${nowHHMM()}</div>
-</div>
-
-    `;
-
-    wrap.querySelector(".bubble").textContent = String(message || "").trim();
-
-    chat.appendChild(wrap);
-
-    scrollBottom();
-
-  }
-
-  function markLastAsRead() {
-
-    const metas = chat.querySelectorAll(".mine-meta");
-
-    if (!metas.length) return;
-
-    metas[metas.length - 1].textContent =
-
-      metas[metas.length - 1].textContent.replace("送信", "既読");
-
-  }
-
-  function setSending(isSending) {
-
-    send.disabled = isSending;
-
-    text.disabled = isSending;
-
-  }
-
-  /* =========================
-
-     GAS呼び出し
-
-     返却例:
-
-     { ok: true, reply: "..." }
-
-  ========================= */
-
-  async function callGAS(userText) {
-
-    if (!GAS_URL || GAS_URL === "YOUR_GAS_WEBAPP_URL") {
-
-      throw new Error("GAS_URL未設定");
-
-    }
-
-    const response = await fetch(GAS_URL, {
-
-      method: "POST",
-
-      headers: {
-
-        "Content-Type": "text/plain;charset=utf-8"
-
-      },
-
-      body: JSON.stringify({
-
-        key: API_KEY,
-
-        text: userText
-
-      })
-
-    });
-
-    if (!response.ok) {
-
-      throw new Error(`HTTP ${response.status}`);
-
-    }
-
-    const data = await response.json();
-
-    if (!data || data.ok !== true) {
-
-      throw new Error(data && data.error ? data.error : "api_error");
-
-    }
-
-    return String(data.reply || "");
-
-  }
-
-  async function submitMessage() {
-
-    const msg = text.value.trim();
-
-    if (!msg || send.disabled) return;
-
-    addMine(msg);
-
-    text.value = "";
-
-    setSending(true);
-
-    try {
-
-      const reply = await callGAS(msg);
-
-      markLastAsRead();
-
-      addTheirs(reply || "（返信が空でした）");
-
-    } catch (error) {
-
-      markLastAsRead();
-
-      addTheirs("通信エラー：" + (error.message || error));
-
-    } finally {
-
-      setSending(false);
-
-      text.focus();
-
-    }
-
-  }
-
-  send.addEventListener("click", submitMessage);
-
-  text.addEventListener("keydown", (e) => {
-
-    if (e.key === "Enter" && !e.shiftKey) {
-
-      e.preventDefault();
-
-      submitMessage();
-
-    }
-
-  });
-</script>
-</body>
-</html>
- 
+const GAS_URL = "YOUR_GAS_URL";
+const API_KEY = "YOUR_API_KEY";
+
+const chat = document.getElementById("chat");
+const text = document.getElementById("text");
+const send = document.getElementById("send");
+
+document.getElementById("today").textContent =
+  new Date().toLocaleDateString();
+
+function now(){
+  return new Date().toLocaleTimeString().slice(0,5);
+}
+
+function addMine(msg){
+  const div = document.createElement("div");
+  div.className="row mine";
+  div.innerHTML=`<div>
