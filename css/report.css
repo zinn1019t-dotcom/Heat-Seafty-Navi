@@ -562,3 +562,82 @@ body{
   white-space: pre-wrap !important;
   word-break: break-word !important;
 }
+/* 画面全体 */
+html, body{
+  height:100%;
+  margin:0;
+}
+
+body{
+  overflow:hidden;
+}
+
+/* 全体 */
+.app{
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  padding-bottom:86px; /* 下部ナビ分 */
+}
+
+/* チャット欄 */
+.chat{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  padding:12px;
+}
+
+/* 入力欄 */
+.composer{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  background:rgba(255,255,255,.95);
+  border-top:1px solid var(--border);
+}
+
+.composer textarea{
+  flex:1;
+  height:40px;
+  min-height:40px;
+  max-height:40px;
+  padding:8px 12px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  resize:none;
+  overflow:hidden;
+}
+
+.composer button{
+  flex:0 0 auto;
+  height:40px;
+  padding:0 14px;
+  border:none;
+  border-radius:18px;
+  background:#111827;
+  color:#fff;
+  font-weight:700;
+}
+
+/* 下部ナビ */
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:100;
+  width:100%;
+  max-width:520px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(16px);
+  border-top:1px solid rgba(17,24,39,.08);
+  box-shadow:0 -8px 24px rgba(15,23,42,.08);
+}
