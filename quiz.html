@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>熱中症対策クイズ | 熱中症対策ナビ</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- ===== favicon（最新版）===== -->
+  <link rel="icon" href="icons/favicon-192-v2.png?v=2" sizes="192x192">
+  <link rel="icon" href="icons/favicon-512-v2.png?v=2" sizes="512x512">
+  <link rel="shortcut icon" href="icons/favicon-192-v2.png?v=2">
+  <link rel="apple-touch-icon" href="icons/favicon-512-v2.png?v=2">
+
+  <meta name="theme-color" content="#6c63ff">
+</head>
+
+<body class="quiz-page">
+
+<header class="site-header">
+  <div class="container">
+    <p class="badge">🌞 熱中症クイズ | Heat Safety Quiz</p>
+
+    <h1>
+      どれくらい知ってる？<br>
+      熱中症クイズゲーム
+    </h1>
+
+    <p class="lead">
+      きょうのキミは、どれくらい<strong>熱中症を知っている</strong>かな？👨‍⚕️👩‍⚕️<br>
+      1問ずつ出てくるから、あてはまると思うこたえをタップしてね。
+    </p>
+
+    <p class="lead-small">
+      ※小学生・中学生でも分かるレベルのクイズです
+    </p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ===== クイズ ===== -->
+  <section class="panel quiz">
+
+    <div class="status-row">
+      <span id="status-question">Q 1 / 10</span>
+      <span id="status-score">正解数：0</span>
+    </div>
+
+    <div class="progress-wrap">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+    <div id="quiz-area"></div>
+
+    <div id="stamp-area" class="stamp-area"></div>
+
+  </section>
+
+  <!-- ===== フッター ===== -->
+  <footer class="footer">
+    <p>© Heat Safety Navigator / 熱中症対策ナビ</p>
+  </footer>
+
+</main>
+
+<!-- JS -->
+<script src="js/app.js"></script>
+
+</body>
+</html>
