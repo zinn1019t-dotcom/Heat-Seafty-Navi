@@ -1,133 +1,121 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>熱中症シミュレーションゲーム | 熱中症対策ナビ</title>
-
-  <link rel="stylesheet" href="css/simulation.css">
-
-  <link rel="icon" type="image/png" href="icons/favicon-16.png" sizes="16x16">
-  <link rel="icon" type="image/png" href="icons/favicon-32.png" sizes="32x32">
-  <link rel="icon" type="image/png" href="icons/favicon-192.png" sizes="192x192">
-  <link rel="shortcut icon" type="image/png" href="icons/favicon-32.png">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png" sizes="180x180">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>熱中症シミュレーション | 熱中症対策ナビ</title>
+<!-- CSS -->
+<link rel="stylesheet" href="css/simulation.css?v=1">
+<!-- ===== favicon（完全対応版）===== -->
+<link rel="icon" href="icons/favicon-192-v2.png" sizes="192x192">
+<link rel="icon" href="icons/favicon-512-v2.png" sizes="512x512">
+<link rel="apple-touch-icon" href="icons/favicon-512-v2.png">
+<!-- fallback（404防止） -->
+<link rel="shortcut icon" href="icons/favicon-192-v2.png">
+<!-- PWA用 -->
+<meta name="theme-color" content="#6c63ff">
 </head>
-
 <body>
-  <div class="app-shell">
-
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-logo">
-          <img src="icons/favicon-192.png" alt="熱中症対策ナビ ロゴ">
-        </div>
-        <div>
-          <h1>熱中症シミュレーション</h1>
-          <p>Heat Safety Navi</p>
-        </div>
-      </div>
-    </header>
-
-    <main class="main-content">
-
-      <section class="hero-card">
-        <div class="hero-badge">体験型コンテンツ</div>
-        <h2>行動によって<br>熱中症リスクが変わる</h2>
-        <p>
-          1日の行動を選びながら、熱中症リスクがどう変わるかを体験できます。
-        </p>
-      </section>
-
-      <section class="panel status">
-        <h2>🧊 現在の状態</h2>
-
-        <div class="status-row">
-          <span class="label-name">水分</span>
-          <div class="bar">
-            <div id="bar-hydration" class="bar-inner"></div>
-          </div>
-          <span id="text-hydration" class="status-value"></span>
-        </div>
-
-        <div class="status-row">
-          <span class="label-name">体温負担</span>
-          <div class="bar">
-            <div id="bar-heat" class="bar-inner heat"></div>
-          </div>
-          <span id="text-heat" class="status-value"></span>
-        </div>
-        <div class="status-row">
-          <span class="label-name">疲れ</span>
-          <div class="bar">
-            <div id="bar-fatigue" class="bar-inner fatigue"></div>
-          </div>
-          <span id="text-fatigue" class="status-value"></span>
-        </div>
-        <p id="risk-label" class="risk-label"></p>
-      </section>
-      <section class="panel scene">
-        <h2 id="scene-title"></h2>
-        <p id="scene-text"></p>
-      </section>
-      <section class="panel choices">
-        <h2>どうする？</h2>
-        <div id="choices-area" class="choices-area"></div>
-      </section>
-      <section class="panel log">
-        <h2>📝 行動ログ</h2>
-        <ul id="log-list" class="log-list"></ul>
-      </section>
-      <section id="result-screen" class="panel result-screen" style="display:none;">
-        <h2 id="result-title"></h2>
-        <p id="result-text"></p>
-
-        <div class="status-summary">
-          <p><strong>最終状態</strong></p>
-          <ul>
-            <li>水分：<span id="result-hydration"></span>%</li>
-            <li>体温負担：<span id="result-heat"></span>%</li>
-            <li>疲れ：<span id="result-fatigue"></span>%</li>
-          </ul>
-        </div>
-
-        <div class="score-box">
-          <p><strong>リスクスコア：</strong><span id="result-score"></span> / 100</p>
-        </div>
-
-        <div class="advice-box">
-          <p><strong>アドバイス</strong></p>
-          <p id="result-advice"></p>
-        </div>
-
-        <button class="btn-restart" onclick="resetGame()">もう一度プレイ</button>
-      </section>
-
-      <section class="panel restart">
-        <button id="restart-btn" class="btn-restart">最初からやり直す</button>
-      </section>
-
-    </main>
-
-    <nav class="bottom-nav">
-      <a class="nav-item" href="index.html">
-        <div class="nav-icon">🏠</div>
-        <div class="nav-text">ホーム</div>
-      </a>
-
-      <a class="nav-item active" href="simulation.html">
-        <div class="nav-icon">🎮</div>
-        <div class="nav-text">ゲーム</div>
-      </a>
-
-      <a class="nav-item" href="features.html">
-        <div class="nav-icon">📋</div>
-        <div class="nav-text">機能表</div>
-      </a>
-    </nav>
-
-  </div>
-
-  <script src="js/simulation.js"></script>
+<div class="app-shell">
+<!-- ===== HEADER ===== -->
+<header class="topbar">
+<div class="brand">
+<div class="brand-logo">
+<img src="icons/favicon-192-v2.png" alt="ロゴ">
+</div>
+<div>
+<h1>熱中症シミュレーション</h1>
+<p>Heat Safety Navi</p>
+</div>
+</div>
+</header>
+<!-- ===== MAIN ===== -->
+<main class="main-content">
+<!-- HERO -->
+<section class="hero-card">
+<div class="hero-badge">体験型コンテンツ</div>
+<h2>行動によって<br>熱中症リスクが変わる</h2>
+<p>選択で未来が変わる。あなたは安全に過ごせるか？</p>
+</section>
+<!-- STATUS -->
+<section class="panel status">
+<h2>🧊 現在の状態</h2>
+<div class="status-row">
+<span class="label-name">水分</span>
+<div class="bar"><div id="bar-hydration" class="bar-inner"></div></div>
+<span id="text-hydration" class="status-value"></span>
+</div>
+<div class="status-row">
+<span class="label-name">体温負担</span>
+<div class="bar"><div id="bar-heat" class="bar-inner heat"></div></div>
+<span id="text-heat" class="status-value"></span>
+</div>
+<div class="status-row">
+<span class="label-name">疲れ</span>
+<div class="bar"><div id="bar-fatigue" class="bar-inner fatigue"></div></div>
+<span id="text-fatigue" class="status-value"></span>
+</div>
+<p id="risk-label" class="risk-label"></p>
+</section>
+<!-- SCENE -->
+<section class="panel scene">
+<h2 id="scene-title"></h2>
+<p id="scene-text"></p>
+</section>
+<!-- CHOICES -->
+<section class="panel choices">
+<h2>どうする？</h2>
+<div id="choices-area" class="choices-area"></div>
+</section>
+<!-- LOG -->
+<section class="panel log">
+<h2>📝 行動ログ</h2>
+<ul id="log-list" class="log-list"></ul>
+</section>
+<!-- RESULT -->
+<section id="result-screen" class="panel" style="display:none;">
+<h2 id="result-title"></h2>
+<p id="result-text"></p>
+<div class="status-summary">
+<p><strong>最終状態</strong></p>
+<ul>
+<li>水分：<span id="result-hydration"></span>%</li>
+<li>体温負担：<span id="result-heat"></span>%</li>
+<li>疲れ：<span id="result-fatigue"></span>%</li>
+</ul>
+</div>
+<div class="score-box">
+<p><strong>リスクスコア：</strong><span id="result-score"></span> / 100</p>
+</div>
+<div class="advice-box">
+<p><strong>アドバイス</strong></p>
+<p id="result-advice"></p>
+</div>
+<button class="btn-restart" onclick="resetGame()">もう一度プレイ</button>
+</section>
+<!-- RESTART -->
+<section class="panel restart">
+<button id="restart-btn" class="btn-restart">最初からやり直す</button>
+</section>
+</main>
+<!-- ===== NAV ===== -->
+<nav class="bottom-nav">
+<a class="nav-item" href="index.html">
+<div class="nav-icon">🏠</div>
+<div class="nav-text">ホーム</div>
+</a>
+<a class="nav-item active" href="simulation.html">
+<div class="nav-icon">🎮</div>
+<div class="nav-text">ゲーム</div>
+</a>
+<a class="nav-item" href="features.html">
+<div class="nav-icon">📋</div>
+<div class="nav-text">機能表</div>
+</a>
+</nav>
+</div>
+<!-- JS -->
+<script src="js/simulation.js?v=1"></script>
 </body>
 </html>
+ 
