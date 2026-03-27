@@ -244,9 +244,9 @@ body{
 
 .row.theirs .avatar{
 
-  width:36px;
+  width:32px;
 
-  height:36px;
+  height:32px;
 
   flex:0 0 auto;
 
@@ -254,9 +254,9 @@ body{
 
 .row.theirs .avatar img{
 
-  width:36px;
+  width:32px;
 
-  height:36px;
+  height:32px;
 
   border-radius:50%;
 
@@ -277,29 +277,17 @@ body{
 /* ===== 吹き出し ===== */
 
 .bubble{
-
   display:inline-block;
-
   width:auto;
-
-  max-width:min(78vw, 360px);
-
-  padding:10px 12px;
-
-  border-radius:18px;
-
-  line-height:1.55;
-
+  max-width:min(62vw, 260px);
+  padding:8px 10px;
+  border-radius:16px;
+  line-height:1.5;
   font-size:14px;
-
   border:1px solid var(--border);
-
   box-shadow:0 4px 12px rgba(0,0,0,.08);
-
   white-space:pre-wrap;
-
   word-break:break-word;
-
 }
 
 /* 色分け */
