@@ -675,3 +675,10 @@ body.quiz-page{
   flex-wrap:wrap;
   margin-top:8px;
 }
+a,
+a:visited,
+a:hover,
+a:active{
+  text-decoration: none;
+  color: inherit;
+}
