@@ -537,4 +537,28 @@ body{
   }
 
 }
- 
+ /* ===== 強制上書き ===== */
+.row.theirs .avatar{
+  width: 32px !important;
+  height: 32px !important;
+  flex: 0 0 auto !important;
+}
+
+.row.theirs .avatar img{
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}
+
+.bubble{
+  display: inline-block !important;
+  width: auto !important;
+  max-width: 240px !important;
+  padding: 8px 10px !important;
+  border-radius: 16px !important;
+  line-height: 1.5 !important;
+  font-size: 14px !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+}
