@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>熱中症予防アクション</title>
   <link rel="stylesheet" href="css/prevention.css">
   <link rel="icon" type="image/png" href="icons/favicon-192-v2.png">
@@ -10,56 +10,75 @@
   <link rel="apple-touch-icon" href="icons/favicon-512-v2.png">
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <div class="site-logo">
-        <img src="icons/favicon-192-v2.png" alt="熱中症対策ナビロゴ">
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="site-logo">
+          <img src="icons/favicon-192-v2.png" alt="熱中症対策ナビロゴ">
+        </div>
+        <div class="header-text">
+          <h1>💧 今すぐできる熱中症予防</h1>
+          <p class="lead">
+            今の暑さの中で、すぐ行動に移せる対策をまとめました。<br>
+            迷ったら、まずは<strong>水分・冷却・日陰・休憩</strong>です。
+          </p>
+        </div>
       </div>
-      <div class="header-text">
-        <h1>💧 今すぐできる熱中症予防</h1>
-        <p class="lead">
-          今の暑さの中で、すぐ行動に移せる対策をまとめました。<br>
-          迷ったら、まずは<strong>水分・冷却・日陰・休憩</strong>です。
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <p class="label">すぐに選べる対策</p>
+
+        <div class="action-grid">
+          <button class="action-btn" data-type="water">💧 水分補給</button>
+          <button class="action-btn" data-type="cool">🧊 体を冷やす</button>
+          <button class="action-btn" data-type="shade">🌳 日陰へ移動</button>
+          <button class="action-btn" data-type="rest">😴 休憩する</button>
+        </div>
+
+        <div id="actionResult" class="action-result">
+          ボタンを押すと、今すぐできる対策が表示されます。
+        </div>
+      </section>
+
+      <section class="card">
+        <p class="label">おすすめの使い方</p>
+        <ul class="advice-list">
+          <li>少しでも暑いと感じたら、まず「💧 水分補給」</li>
+          <li>頭がぼーっとするなら「🧊 体を冷やす」「😴 休憩する」</li>
+          <li>外にいるなら「🌳 日陰へ移動」を優先</li>
+          <li>症状が強いときは、周りの大人や先生にすぐ相談</li>
+        </ul>
+      </section>
+
+      <section class="note">
+        <h2>🔍 注意</h2>
+        <p>
+          このページは熱中症予防の行動をまとめたものです。<br>
+          めまい、吐き気、強いだるさ、意識がはっきりしないなどの症状がある場合は、
+          <strong>無理せずすぐに休み、必要なら119や近くの大人へ相談してください。</strong>
         </p>
-      </div>
-    </div>
-  </header>
+      </section>
+    </main>
 
-  <main class="container">
-    <section class="card">
-      <p class="label">すぐに選べる対策</p>
+    <nav class="bottom-nav">
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">ホーム</span>
+      </a>
 
-      <div class="action-grid">
-        <button class="action-btn" data-type="water">💧 水分補給</button>
-        <button class="action-btn" data-type="cool">🧊 体を冷やす</button>
-        <button class="action-btn" data-type="shade">🌳 日陰へ移動</button>
-        <button class="action-btn" data-type="rest">😴 休憩する</button>
-      </div>
+      <a href="prevention.html" class="nav-item active">
+        <span class="nav-icon">💧</span>
+        <span class="nav-text">予防</span>
+      </a>
 
-      <div id="actionResult" class="action-result">
-        ボタンを押すと、今すぐできる対策が表示されます。
-      </div>
-    </section>
-
-    <section class="card">
-      <p class="label">おすすめの使い方</p>
-      <ul class="advice-list">
-        <li>少しでも暑いと感じたら、まず「💧 水分補給」</li>
-        <li>頭がぼーっとするなら「🧊 体を冷やす」「😴 休憩する」</li>
-        <li>外にいるなら「🌳 日陰へ移動」を優先</li>
-        <li>症状が強いときは、周りの大人や先生にすぐ相談</li>
-      </ul>
-    </section>
-
-    <section class="note">
-      <h2>🔍 注意</h2>
-      <p>
-        このページは熱中症予防の行動をまとめたものです。<br>
-        めまい、吐き気、強いだるさ、意識がはっきりしないなどの症状がある場合は、
-        <strong>無理せずすぐに休み、必要なら119や近くの大人へ相談してください。</strong>
-      </p>
-    </section>
-  </main>
+      <a href="features.html" class="nav-item">
+        <span class="nav-icon">📋</span>
+        <span class="nav-text">機能表</span>
+      </a>
+    </nav>
+  </div>
 
   <footer class="site-footer">
     <p>© 熱中症対策ナビ</p>
