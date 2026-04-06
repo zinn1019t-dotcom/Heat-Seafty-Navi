@@ -1,296 +1,237 @@
-/* 全体 */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
-
   margin: 0;
-
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-
   background: linear-gradient(180deg, #e0f3ff, #ffffff);
-
   color: #333;
-
 }
 
-/* ヘッダー */
+.app-shell {
+  min-height: calc(100vh - 48px);
+  padding-bottom: 88px;
+}
 
 .site-header {
-
   padding: 16px;
-
   background: rgba(255, 255, 255, 0.85);
-
   border-bottom: 1px solid #cfe4ff;
-
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
-
-/* ロゴ＋テキスト横並び */
 
 .header-inner {
-
   max-width: 640px;
-
   margin: 0 auto;
-
   display: flex;
-
   align-items: center;
-
   gap: 12px;
-
 }
-
-/* ロゴ */
 
 .site-logo img {
-
   display: block;
-
   width: 64px;
-
   height: 64px;
-
   object-fit: contain;
-
+  border-radius: 14px;
 }
 
-/* タイトル部分 */
-
 .header-text h1 {
-
   margin: 0 0 4px;
-
   font-size: 1.4rem;
-
+  line-height: 1.35;
 }
 
 .header-text .lead {
-
   margin: 0;
-
   font-size: 0.9rem;
-
   line-height: 1.6;
-
 }
-
-/* コンテナ */
 
 .container {
-
   max-width: 600px;
-
   margin: 16px auto;
-
   padding: 0 12px 24px;
-
 }
-
-/* カード */
 
 .card {
-
   background: #ffffff;
-
   border-radius: 12px;
-
   padding: 16px;
-
   box-shadow: 0 4px 12px rgba(0, 80, 160, 0.08);
-
   margin-bottom: 12px;
-
 }
-
-/* ラベル */
 
 .label {
-
   font-size: 0.85rem;
-
   color: #0070c9;
-
   margin: 0 0 10px;
-
   font-weight: 700;
-
 }
-
-/* ボタングリッド */
 
 .action-grid {
-
   display: grid;
-
   grid-template-columns: repeat(2, 1fr);
-
   gap: 10px;
-
   margin-top: 12px;
-
   margin-bottom: 14px;
-
 }
 
-/* ボタン */
-
 .action-btn {
-
   padding: 14px;
-
   border: none;
-
   border-radius: 12px;
-
   font-weight: 700;
-
   font-size: 14px;
-
   background: #dbeafe;
-
   color: #1d4ed8;
-
   cursor: pointer;
-
   transition: 0.2s;
-
 }
 
 .action-btn:hover {
-
   background: #bfdbfe;
-
 }
 
 .action-btn:active {
-
   transform: scale(0.96);
-
 }
 
-/* 結果表示 */
+.action-btn.is-active {
+  background: #2563eb;
+  color: #fff;
+}
 
 .action-result {
-
   margin-top: 14px;
-
   padding: 12px;
-
   border-radius: 10px;
-
   background: #f0f9ff;
-
   border: 1px solid #cfe4ff;
-
   font-size: 14px;
-
   line-height: 1.7;
-
+  min-height: 120px;
 }
 
-/* アドバイスリスト */
-
 .advice-list {
-
   padding-left: 1.2rem;
-
   margin: 4px 0 0;
-
   font-size: 0.9rem;
-
+  line-height: 1.7;
 }
 
 .advice-list li {
-
   margin-bottom: 6px;
-
 }
 
-/* ノート */
-
 .note {
-
   margin-top: 16px;
-
   padding: 12px;
-
   background: #f2f8ff;
-
   border-radius: 10px;
-
   font-size: 0.85rem;
-
   line-height: 1.7;
-
+  border: 1px solid #d9ecff;
 }
 
 .note h2 {
-
-  margin-top: 0;
-
+  margin: 0 0 8px;
   font-size: 1rem;
-
 }
 
-/* フッター */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid #dbeafe;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+
+.nav-item {
+  flex: 1;
+  text-decoration: none;
+  color: #64748b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 6px;
+  border-radius: 12px;
+  transition: 0.2s;
+  min-height: 56px;
+}
+
+.nav-item.active {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 700;
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.nav-text {
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
 
 .site-footer {
-
   text-align: center;
-
   font-size: 0.75rem;
-
   padding: 8px 0 16px;
-
   color: #666;
-
 }
 
-/* スマホ */
-
 @media (max-width: 480px) {
-
   .header-inner {
-
     align-items: center;
-
     padding: 0 4px;
-
   }
 
   .site-logo img {
-
     width: 52px;
-
     height: 52px;
-
   }
 
   .header-text h1 {
-
     font-size: 1.2rem;
-
   }
 
   .header-text .lead {
-
     font-size: 0.85rem;
-
   }
 
   .action-grid {
-
     grid-template-columns: 1fr;
-
   }
 
   .action-btn {
-
     font-size: 14px;
-
     padding: 13px;
-
   }
 
+  .action-result {
+    min-height: 140px;
+  }
+
+  .nav-text {
+    font-size: 0.72rem;
+  }
 }
- 
